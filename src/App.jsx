@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BooksContainer from "./components/BooksContainer";
-
+import Header from "./components/Header";
+import { GlobalStyle } from "./styles";
 const App = () => {
   const [books, setBooks] = useState();
 
@@ -22,10 +23,11 @@ const App = () => {
 
   console.log(`Books are: ${books}`);
   return (
-    <div>
+    <>
+      <GlobalStyle />
+      <Header />
       <BooksContainer books={books} />
-      <p>learn react</p>
-    </div>
+    </>
   );
 };
 
