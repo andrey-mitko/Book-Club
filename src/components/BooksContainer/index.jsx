@@ -3,11 +3,13 @@ import { Container, H2, BookList } from "./styles";
 
 import Book from "../Book";
 
-const BooksContainer = ({ books }) => {
+const BooksContainer = ({ books, pickBook, isPanelOpen }) => {
   return (
-    <Container>
+    <Container $isPanelOpen={isPanelOpen}>
       <H2>All books</H2>
-      <BookList>{books && books.map((book) => <Book key={book.id} book={book} />)}</BookList>
+      <BookList>
+        {books && books.map((book) => <Book key={book.id} book={book} pickBook={pickBook} />)}
+      </BookList>
     </Container>
   );
 };

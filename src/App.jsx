@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
 import BooksContainer from "./components/BooksContainer";
 import Header from "./components/Header";
+import DetailPanel from "./components/DetailPanel";
 import { GlobalStyle } from "./styles";
+
 const App = () => {
   const [books, setBooks] = useState();
+  const [selectedBook, setSelectedBook] = useState(null);
+
+  const pickBook = (book) => {
+    setSelectedBook(book);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,12 +28,16 @@ const App = () => {
     fetchData();
   }, []);
 
-  console.log(`Books are: ${books}`);
+  const closePanel = () => {
+    setSelectedBook(null);
+  };
+
   return (
     <>
       <GlobalStyle />
       <Header />
-      <BooksContainer books={books} />
+      <BooksContainer books={books} pickBook={pickBook} isPanelOpen={selectedBook !== null} />
+      {selectedBook && <DetailPanel book={selectedBook} closePanel={closePanel} />}
     </>
   );
 };
