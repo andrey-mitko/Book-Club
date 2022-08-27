@@ -1,21 +1,35 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Book from "../Book";
 import { Panel, P, Em, Close, CloseWrapper, BG } from "./styles";
 
-const DetailPanel = ({ book, closePanel }) => {
+const DetailPanel = ({ book, closePanel, state }) => {
+  const panelEl = useRef(null);
+  const prevBook = useRef(null);
+
+  useEffect(() => {
+    if (prevBook.current !== book) {
+      panelEl.current.scrollTop = 0;
+    }
+
+    prevBook.current = book;
+  }, [book, prevBook]);
+
   return (
     <>
-      <BG onClick={closePanel} />
-      <Panel>
-        <CloseWrapper onClick={closePanel}>
+      <BG $state={state} onClick={closePanel} />
+      <Panel $state={state} ref={panelEl}>
+        <CloseWrapper $state={state} onClick={closePanel}>
           <Close />
         </CloseWrapper>
-
-        <Book book={book} isLarge={true} />
-        <P>{book.description}</P>
-        <P>
-          <Em>Published in {book.published}</Em>
-        </P>
+        {book && (
+          <>
+            <Book book={book} isLarge={true} />
+            <P>{book.description}</P>
+            <P>
+              <Em>Published in {book.published}</Em>
+            </P>
+          </>
+        )}
       </Panel>
     </>
   );
