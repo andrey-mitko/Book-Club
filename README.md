@@ -1,6 +1,6 @@
 <h1 align="center">Book Club</h1>
 
-<p align="center">A simple react applications showcasing api and state management.</p>
+<p align="center">A simple react application showcasing API and state management.</p>
 
 ## 🔗 Links
 
